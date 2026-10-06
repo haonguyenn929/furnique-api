@@ -38,7 +38,7 @@ export class AnalyticService {
       }),
       this.orderRepository.model.countDocuments({
         ...filter,
-        createdAt: { $lte: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
+        createdAt: { $lt: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
       })
     ])
     const percent = previousTotal !== 0 ? Math.round(((total - previousTotal) / previousTotal) * 100 * 100) / 100 : 0
@@ -57,7 +57,7 @@ export class AnalyticService {
         }
       ]),
       this.paymentRepository.model.aggregate([
-        { $match: { ...filter, createdAt: { $lte: startOfCurrentPeriod, $gte: startOfPreviousPeriod } } },
+        { $match: { ...filter, createdAt: { $lt: startOfCurrentPeriod, $gte: startOfPreviousPeriod } } },
         {
           $group: { _id: null, amount: { $sum: '$amount' } }
         }
@@ -80,7 +80,7 @@ export class AnalyticService {
       }),
       this.productRepository.model.countDocuments({
         ...filter,
-        createdAt: { $lte: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
+        createdAt: { $lt: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
       })
     ])
     const percent = previousTotal !== 0 ? Math.round(((total - previousTotal) / previousTotal) * 100 * 100) / 100 : 0
@@ -98,7 +98,7 @@ export class AnalyticService {
       }),
       this.customerRepository.model.countDocuments({
         ...filter,
-        createdAt: { $lte: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
+        createdAt: { $lt: startOfCurrentPeriod, $gte: startOfPreviousPeriod }
       })
     ])
     const percent = previousTotal !== 0 ? Math.round(((total - previousTotal) / previousTotal) * 100 * 100) / 100 : 0
